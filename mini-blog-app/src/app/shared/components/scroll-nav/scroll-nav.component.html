@@ -1,0 +1,35 @@
+@if (showTop() || showBottom()) {
+  <nav
+    class="scroll-nav"
+    [class.scroll-nav--dual]="showTop() && showBottom()"
+    aria-label="Sayfa kaydırma"
+  >
+    @if (showTop()) {
+      <button
+        type="button"
+        class="scroll-nav__btn scroll-nav__btn--top"
+        (click)="scrollToTop()"
+        aria-label="Sayfanın başına git"
+        title="Başa dön"
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="M12 5l-7 7h4v7h6v-7h4l-7-7z" />
+        </svg>
+      </button>
+    }
+
+    @if (showBottom()) {
+      <button
+        type="button"
+        class="scroll-nav__btn scroll-nav__btn--bottom"
+        (click)="scrollToBottom()"
+        aria-label="Sayfanın sonuna git"
+        title="Sona git"
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="M12 19l7-7h-4V5h-6v7H5l7 7z" />
+        </svg>
+      </button>
+    }
+  </nav>
+}

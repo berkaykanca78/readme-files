@@ -1,0 +1,34 @@
+<article class="post-detail">
+  @if (loading()) {
+    <p class="post-detail__status">Yükleniyor…</p>
+  } @else if (notFound()) {
+    <div class="post-detail__not-found">
+      <h1>Yazı bulunamadı</h1>
+      <p>Aradığınız slug manifest içinde tanımlı değil veya dosya eksik.</p>
+      <a routerLink="/">Ana sayfaya dön</a>
+    </div>
+  } @else if (post(); as current) {
+    <header class="post-detail__header">
+      <a routerLink="/" class="post-detail__back">← Tüm yazılar</a>
+      <h1>{{ current.title }}</h1>
+      <div class="post-detail__meta">
+        <span class="post-detail__category">{{ categoryLabel(current.category) }}</span>
+        @if (current.publishedAt) {
+          <time [dateTime]="current.publishedAt">{{ current.publishedAt | date: 'd MMM y' }}</time>
+        }
+        @if (current.readingMinutes) {
+          <span>{{ current.readingMinutes }} dk</span>
+        }
+        @if (current.tags?.length) {
+          @for (tag of current.tags; track tag) {
+            <span class="post-detail__tag">{{ tag }}</span>
+          }
+        }
+      </div>
+    </header>
+
+    <div class="post-detail__body">
+      <app-markdown-content [html]="current.contentHtml" />
+    </div>
+  }
+</article>

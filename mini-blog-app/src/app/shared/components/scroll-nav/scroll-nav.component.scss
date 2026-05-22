@@ -1,0 +1,104 @@
+.scroll-nav {
+  position: fixed;
+  right: var(--spacing-24);
+  bottom: var(--spacing-32);
+  z-index: 90;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: var(--spacing-4);
+  border-radius: calc(var(--radius-buttons) + 6px);
+  background: color-mix(in srgb, var(--color-canvas-white) 88%, transparent);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--color-cloud-gray);
+  box-shadow: var(--shadow-xl-2);
+  animation: scroll-nav-enter 0.25s ease;
+
+  &--dual {
+    gap: var(--spacing-4);
+
+    .scroll-nav__btn--top {
+      border-bottom-left-radius: var(--spacing-4);
+      border-bottom-right-radius: var(--spacing-4);
+    }
+
+    .scroll-nav__btn--bottom {
+      border-top-left-radius: var(--spacing-4);
+      border-top-right-radius: var(--spacing-4);
+    }
+  }
+}
+
+.scroll-nav__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: none;
+  border-radius: var(--radius-buttons);
+  background: var(--color-canvas-white);
+  color: var(--color-slate-text);
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.15s ease;
+
+  svg {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+  }
+
+  &:hover {
+    background: var(--color-oceanic-blue);
+    color: var(--color-canvas-white);
+    box-shadow: var(--shadow-md);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-oceanic-blue);
+    outline-offset: 2px;
+  }
+
+  &:active {
+    transform: scale(0.96);
+  }
+}
+
+@keyframes scroll-nav-enter {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .scroll-nav {
+    right: var(--spacing-16);
+    bottom: var(--spacing-24);
+  }
+
+  .scroll-nav__btn {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-nav {
+    animation: none;
+  }
+
+  .scroll-nav__btn {
+    transition: none;
+  }
+}

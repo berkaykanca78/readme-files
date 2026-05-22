@@ -1,0 +1,53 @@
+<header class="site-header">
+  <div class="site-header__inner">
+    <a routerLink="/" class="site-header__logo">Mini Blog</a>
+
+    <div class="site-header__right">
+      <div class="site-header__search">
+        <label class="site-header__search-label" for="site-search">Ara</label>
+        <span class="site-header__search-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2" />
+            <path d="M20 20L16.5 16.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+          </svg>
+        </span>
+        <input
+          id="site-search"
+          type="text"
+          role="searchbox"
+          enterkeyhint="search"
+          class="site-header__search-input"
+          placeholder="Yazılarda ara…"
+          [ngModel]="searchQuery()"
+          (ngModelChange)="onSearchInput($event)"
+          autocomplete="off"
+        />
+        @if (searchQuery()) {
+          <button
+            type="button"
+            class="site-header__search-clear"
+            (click)="clearSearch()"
+            aria-label="Aramayı temizle"
+          >
+            ×
+          </button>
+        }
+      </div>
+
+      <nav class="site-header__nav" aria-label="Ana menü">
+        <a routerLink="/" routerLinkActive="is-active" [routerLinkActiveOptions]="{ exact: true }">
+          Tümü
+        </a>
+        @for (cat of categories(); track cat.slug) {
+          <a
+            [routerLink]="['/kategori', cat.slug]"
+            routerLinkActive="is-active"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            {{ cat.label }}
+          </a>
+        }
+      </nav>
+    </div>
+  </div>
+</header>

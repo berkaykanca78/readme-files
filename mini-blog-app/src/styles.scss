@@ -1,0 +1,139 @@
+/* Design tokens — cord.com (DESIGN.md) */
+@import url('https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;700;800&display=swap');
+
+:root {
+  /* Colors */
+  --color-canvas-white: #ffffff;
+  --color-midnight-ink: #0b3658;
+  --color-cloud-gray: #dde7ee;
+  --color-oceanic-blue: #4e9ad9;
+  --color-subtle-mist: #e6f1fa;
+  --color-slate-text: #486984;
+  --color-muted-stone: #688dac;
+  --color-soft-ash: #97b5ce;
+  --color-subtle-gray: #c8d8e4;
+  --color-success-teal: #42b3b1;
+  --color-error-red: #f56c6c;
+  --color-warning-orange: #e2a365;
+
+  --gradient-twilight: linear-gradient(278deg, rgb(123, 126, 230) 5.46%, rgb(74, 81, 148) 95.65%);
+  --gradient-deep-space: linear-gradient(78deg, rgb(12, 61, 100) 7.69%, rgb(25, 36, 67) 124.07%);
+
+  /* Typography */
+  --font-figtree: 'Figtree', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    'Segoe UI', Roboto, sans-serif;
+
+  --text-caption: 10px;
+  --leading-caption: 1.4;
+  --text-body-sm: 14px;
+  --leading-body-sm: 1.43;
+  --text-body: 16px;
+  --leading-body: 1.5;
+  --text-subheading: 18px;
+  --leading-subheading: 1.4;
+  --text-heading-sm: 20px;
+  --leading-heading-sm: 1.3;
+  --text-heading: 24px;
+  --leading-heading: 1.25;
+  --text-heading-lg: 32px;
+  --leading-heading-lg: 1.2;
+  --text-display: clamp(2.25rem, 6vw, 3rem);
+  --leading-display: 1.1;
+
+  --font-weight-regular: 400;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+
+  /* Spacing */
+  --spacing-4: 4px;
+  --spacing-8: 8px;
+  --spacing-12: 12px;
+  --spacing-16: 16px;
+  --spacing-20: 20px;
+  --spacing-24: 24px;
+  --spacing-28: 28px;
+  --spacing-32: 32px;
+  --spacing-40: 40px;
+  --spacing-48: 48px;
+  --spacing-64: 64px;
+
+  /* Layout */
+  --page-max-width: 1200px;
+  --content-max-width: 760px;
+  --section-gap: 64px;
+  --card-padding: 28px;
+  --element-gap: 8px;
+
+  /* Radius */
+  --radius-badges: 5px;
+  --radius-buttons: 8px;
+  --radius-cards: 24px;
+
+  /* Shadows */
+  --shadow-xl: rgba(11, 54, 88, 0.08) 0px 12px 48px 0px;
+  --shadow-xl-2: rgba(11, 54, 88, 0.08) 0px 4px 32px 0px;
+  --shadow-md: rgba(11, 54, 88, 0.04) 0px 4px 12px 0px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+  scrollbar-gutter: stable;
+  scrollbar-color: var(--color-soft-ash) var(--color-subtle-mist);
+}
+
+html::-webkit-scrollbar {
+  width: 10px;
+}
+
+html::-webkit-scrollbar-track {
+  background: var(--color-subtle-mist);
+}
+
+html::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    180deg,
+    var(--color-soft-ash) 0%,
+    color-mix(in srgb, var(--color-oceanic-blue) 55%, var(--color-soft-ash)) 100%
+  );
+  border-radius: 999px;
+  border: 2px solid var(--color-subtle-mist);
+  transition: background 0.2s ease;
+}
+
+html::-webkit-scrollbar-thumb:hover {
+  background: var(--color-oceanic-blue);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-figtree);
+  font-size: var(--text-body);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--leading-body);
+  color: var(--color-midnight-ink);
+  background: var(--color-canvas-white);
+}
+
+a {
+  color: inherit;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}

@@ -1,10 +1,12 @@
 # ACID ve BASE Veritabanında Tutarlılık Konusu
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Database-Consistency-blue?style=for-the-badge" />
-  <img src="https://img.shields.io/badge/CAP-Theorem-orange?style=for-the-badge" />
-  <img src="https://img.shields.io/badge/ACID-vs-BASE-green?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Database-Consistency-0B3658?style=for-the-badge&logo=postgresql&logoColor=white" alt="Database Consistency" />
+  <img src="https://img.shields.io/badge/CAP-Theorem-4E9AD9?style=for-the-badge&logo=apachespark&logoColor=white" alt="CAP Theorem" />
+  <img src="https://img.shields.io/badge/ACID_vs_BASE-Models-42B3B1?style=for-the-badge&logo=sqlite&logoColor=white" alt="ACID vs BASE" />
 </p>
+
+![Dağıtık veritabanı tutarlılığı — ACID, BASE ve CAP](/md-files/database/images/database-consistency-hero.png)
 
 ---
 
@@ -55,7 +57,7 @@ Bu noktada karşımıza şu temel konular çıkar:
 
 CAP Teoremi şunu söyler:
 
-> Dağıtık bir sistem aynı anda 3 özelliğin tamamını kusursuz sağlayamaz.
+> Dağıtık bir sistem aynı anda 3 özelliğin tamamını kusursuz sağlayamaz. 3 özellikten 2 tanesini seçmemiz gerekir.
 
 Bu özellikler:
 
@@ -69,18 +71,7 @@ Bu özellikler:
 
 ## CAP Görseli
 
-```text
-           +----------------+
-           | Consistency    |
-           +----------------+
-                 / \
-                /   \
-               /     \
-              /       \
-+----------------+   +----------------+
-| Availability   |   | Partition Tol. |
-+----------------+   +----------------+
-```
+![CAP Teoremi — Consistency, Availability, Partition Tolerance](/md-files/database/images/cap-theorem.png)
 
 ---
 
@@ -185,6 +176,8 @@ ACID, ilişkisel veritabanlarının temelidir.
 - MySQL
 
 ACID güçlü veri tutarlılığı sağlar.
+
+![ACID modeli — Atomicity, Consistency, Isolation, Durability](/md-files/database/images/acid-model.png)
 
 ---
 
@@ -348,6 +341,8 @@ BASE açılımı:
 | A | Soft State |
 | E | Eventual Consistency |
 
+![BASE modeli — Basically Available, Soft State, Eventual Consistency](/md-files/database/images/base-model.png)
+
 ---
 
 # BASE Mantığı
@@ -443,6 +438,8 @@ Bir süre sonra sistem eşitlenir.
 ---
 
 # ACID vs BASE Karşılaştırması
+
+![ACID ve BASE karşılaştırması](/md-files/database/images/acid-vs-base.png)
 
 | Özellik | ACID | BASE |
 |---|---|---|
@@ -585,11 +582,7 @@ Bu yüzden sistem tasarımında öncelik belirlenir.
 
 # Faydalı Kaynak
 
-Video:
-
-```text
 https://www.youtube.com/watch?v=CG_-QT2OcNk
-```
 
 ---
 

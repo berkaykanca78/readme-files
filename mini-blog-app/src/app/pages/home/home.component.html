@@ -1,0 +1,131 @@
+<section class="hero" #hero>
+  <div class="hero__gradient" aria-hidden="true"></div>
+
+  <div class="hero__parallax" aria-hidden="true">
+    <span class="hero__orb hero__orb--1" [ngStyle]="parallaxStyle(1)"></span>
+    <span class="hero__orb hero__orb--2" [ngStyle]="parallaxStyle(2)"></span>
+    <span class="hero__orb hero__orb--3" [ngStyle]="parallaxStyle(3)"></span>
+    <svg class="hero__grid" [ngStyle]="parallaxStyle(0.6)" viewBox="0 0 400 400" fill="none">
+      <defs>
+        <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+          <path d="M40 0H0V40" stroke="rgba(255,255,255,0.08)" stroke-width="1" fill="none"/>
+        </pattern>
+      </defs>
+      <rect width="400" height="400" fill="url(#grid)"/>
+    </svg>
+  </div>
+
+  <div class="hero__chaos" aria-hidden="true">
+    <div class="hero__chaos-col hero__chaos-col--left">
+      @for (sticker of leftStickers; track sticker.id) {
+        <div class="chaos-sticker-wrap" [ngStyle]="chaosWrapStyle(sticker)" [attr.data-sticker]="sticker.id">
+          <img
+            class="chaos-sticker"
+            [src]="sticker.src"
+            [alt]="sticker.alt"
+            [style.width.px]="sticker.width"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+      }
+    </div>
+
+    <div class="hero__chaos-col hero__chaos-col--right">
+      @for (sticker of rightStickers; track sticker.id) {
+        <div class="chaos-sticker-wrap" [ngStyle]="chaosWrapStyle(sticker)" [attr.data-sticker]="sticker.id">
+          <img
+            class="chaos-sticker"
+            [src]="sticker.src"
+            [alt]="sticker.alt"
+            [style.width.px]="sticker.width"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+      }
+    </div>
+  </div>
+
+  <div class="hero__content">
+    <p class="hero__eyebrow">Mini Blog</p>
+    <h1 class="hero__title">Yazılım mimarisi üzerine notlar</h1>
+    <p class="hero__subtitle">
+      Veritabanları, dağıtık sistemler ve tutarlılık konularında derlediğim okumalar.
+      Karmaşık konuları sade anlatmayı seviyorum.
+    </p>
+    <!-- <div class="hero__actions">
+      <a routerLink="/" fragment="yazilar" class="hero__cta hero__cta--primary">Son yazılara göz at</a>
+      <a routerLink="/post/acid-base-cap" class="hero__cta hero__cta--outline">ACID &amp; BASE rehberi</a>
+    </div> -->
+  </div>
+</section>
+
+<section class="posts" id="yazilar">
+  <header class="posts__header">
+    @if (activeCategoryLabel()) {
+      <span class="posts__badge">{{ activeCategoryLabel() }}</span>
+      <h2>{{ activeCategoryLabel() }} yazıları</h2>
+    } @else if (searchQuery()) {
+      <span class="posts__badge">Arama</span>
+      <h2>"{{ searchQuery() }}" için sonuçlar</h2>
+    } @else {
+      <span class="posts__badge">Arşiv</span>
+      <h2>Son yazılar</h2>
+    }
+    <p>
+      @if (posts().length === 0) {
+        @if (searchQuery() || activeCategory()) {
+          Aradığınız kriterlere uygun yazı bulunamadı.
+        } @else {
+          Henüz yayınlanmış yazı yok.
+        }
+      } @else {
+        En son eklediğim notlar — okumak için birini seç.
+      }
+    </p>
+  </header>
+
+  @if (posts().length === 0) {
+    <p class="posts__empty">
+      @if (searchQuery() || activeCategory()) {
+        Farklı bir arama deneyin veya
+        <a routerLink="/">tüm yazılara dönün</a>.
+      } @else {
+        Henüz tanımlı yazı yok. posts.manifest.ts dosyasına ekleyin.
+      }
+    </p>
+  } @else {
+    <ul class="posts__list">
+      @for (post of posts(); track post.slug) {
+        <li>
+          <article class="post-card">
+            @if (post.coverImage) {
+              <a [routerLink]="['/post', post.slug]" class="post-card__media">
+                <img [src]="post.coverImage" [alt]="post.title" loading="lazy" />
+              </a>
+            }
+            <div class="post-card__body">
+              <div class="post-card__meta">
+                <span class="post-card__category">{{ categoryLabel(post.category) }}</span>
+                @if (post.publishedAt) {
+                  <time [dateTime]="post.publishedAt">{{ post.publishedAt | date: 'd MMM y' }}</time>
+                }
+              </div>
+              <h3 class="post-card__title">
+                <a [routerLink]="['/post', post.slug]">{{ post.title }}</a>
+              </h3>
+              <p class="post-card__excerpt">{{ post.excerpt }}</p>
+              <div class="post-card__footer">
+                @if (post.readingMinutes) {
+                  <span>{{ post.readingMinutes }} dk okuma</span>
+                }
+                <a [routerLink]="['/post', post.slug]" class="post-card__link">Devamını oku →</a>
+              </div>
+            </div>
+          </article>
+        </li>
+      }
+    </ul>
+  }
+</section>
