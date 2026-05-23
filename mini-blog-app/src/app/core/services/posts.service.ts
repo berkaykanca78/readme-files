@@ -1,4 +1,4 @@
-import { APP_BASE_HREF } from '@angular/common';
+import { DOCUMENT } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { catchError, map, Observable, of } from 'rxjs';
@@ -23,7 +23,7 @@ export class PostsService {
   private readonly http = inject(HttpClient);
   private readonly markdown = inject(MarkdownService);
   private readonly categories = inject(CategoriesService);
-  private readonly baseHref = inject(APP_BASE_HREF);
+  private readonly document = inject(DOCUMENT);
 
   listMeta(filter?: PostFilter): PostMeta[] {
     let posts = [...POSTS_MANIFEST];
@@ -89,8 +89,7 @@ export class PostsService {
   }
 
   private assetUrl(path: string): string {
-    const base = this.baseHref.endsWith('/') ? this.baseHref : `${this.baseHref}/`;
-    const relative = path.replace(/^\//, '');
-    return `${base}${relative}`;
+    const baseHref = this.document.querySelector('base')?.href ?? `${this.document.location.origin}/`;
+    return new URL(path.replace(/^\//, ''), baseHref).pathname;
   }
 }
