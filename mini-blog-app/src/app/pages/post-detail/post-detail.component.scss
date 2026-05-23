@@ -25,6 +25,17 @@
 .post-detail__not-found {
   text-align: center;
   color: var(--color-muted-stone);
+
+  code {
+    font-size: var(--text-body-sm);
+    color: var(--color-midnight-ink);
+  }
+}
+
+.post-detail__hint {
+  max-width: 36rem;
+  margin-inline: auto;
+  font-size: var(--text-body-sm);
 }
 
 .post-detail__not-found {

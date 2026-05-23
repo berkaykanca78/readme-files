@@ -24,6 +24,7 @@ export class PostDetailComponent implements OnInit {
   readonly post = signal<Post | undefined>(undefined);
   readonly loading = signal(true);
   readonly notFound = signal(false);
+  readonly loadFailedPath = signal<string | null>(null);
   readonly leftStickers = CHAOS_STICKERS.filter((sticker) => sticker.zone === 'left');
   readonly rightStickers = CHAOS_STICKERS.filter((sticker) => sticker.zone === 'right');
 
@@ -31,11 +32,15 @@ export class PostDetailComponent implements OnInit {
     this.postsService.getBySlug(this.slug()).subscribe({
       next: (result) => {
         this.loading.set(false);
-        if (!result) {
-          this.notFound.set(true);
+        if (result.status === 'ok') {
+          this.post.set(result.post);
           return;
         }
-        this.post.set(result);
+        if (result.status === 'load-failed') {
+          this.loadFailedPath.set(result.filePath);
+          return;
+        }
+        this.notFound.set(true);
       },
       error: () => {
         this.loading.set(false);

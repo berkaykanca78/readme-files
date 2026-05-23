@@ -1,6 +1,19 @@
 <article class="post-detail">
   @if (loading()) {
     <p class="post-detail__status">Yükleniyor…</p>
+  } @else if (loadFailedPath(); as filePath) {
+    <div class="post-detail__not-found">
+      <h1>İçerik yüklenemedi</h1>
+      <p>
+        Markdown dosyası sunucudan alınamadı:
+        <code>{{ filePath }}</code>
+      </p>
+      <p class="post-detail__hint">
+        Production build için <code>dist/mini-blog-app</code> klasörünü servis edin
+        veya <code>npm run preview</code> kullanın.
+      </p>
+      <a routerLink="/">Ana sayfaya dön</a>
+    </div>
   } @else if (notFound()) {
     <div class="post-detail__not-found">
       <h1>Yazı bulunamadı</h1>

@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "preview": "npm run build && npx serve dist/mini-blog-app -s -l 4200",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },

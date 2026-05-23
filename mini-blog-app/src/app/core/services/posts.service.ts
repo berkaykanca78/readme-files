@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { map, Observable, of } from 'rxjs';
+import { catchError, map, Observable, of } from 'rxjs';
 
 import { POSTS_MANIFEST } from '../data/posts.manifest';
 import { Post, PostMeta } from '../models/post.model';
@@ -11,6 +11,11 @@ export interface PostFilter {
   category?: string | null;
   query?: string | null;
 }
+
+export type PostFetchResult =
+  | { status: 'ok'; post: Post }
+  | { status: 'missing' }
+  | { status: 'load-failed'; filePath: string };
 
 @Injectable({ providedIn: 'root' })
 export class PostsService {
@@ -41,12 +46,15 @@ export class PostsService {
     return POSTS_MANIFEST.find((p) => p.slug === slug);
   }
 
-  getBySlug(slug: string): Observable<Post | undefined> {
+  getBySlug(slug: string): Observable<PostFetchResult> {
     const meta = this.getMetaBySlug(slug);
     if (!meta) {
-      return of(undefined);
+      return of({ status: 'missing' });
     }
-    return this.loadPost(meta);
+    return this.loadPost(meta).pipe(
+      map((post) => ({ status: 'ok' as const, post })),
+      catchError(() => of({ status: 'load-failed' as const, filePath: meta.filePath })),
+    );
   }
 
   private matchesQuery(post: PostMeta, query: string): boolean {
