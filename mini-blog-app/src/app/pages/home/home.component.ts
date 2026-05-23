@@ -16,8 +16,6 @@ import { combineLatest, map } from 'rxjs';
 import { PostMeta } from '../../core/models/post.model';
 import { CategoriesService } from '../../core/services/categories.service';
 import { PostsService } from '../../core/services/posts.service';
-import { HERO_CHAOS_STICKERS, ChaosSticker } from './home-chaos.data';
-
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -36,8 +34,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
   readonly activeCategoryLabel = signal<string | null>(null);
   readonly searchQuery = signal('');
   readonly parallaxOffset = signal(0);
-  readonly leftStickers = HERO_CHAOS_STICKERS.filter((sticker) => sticker.zone === 'left');
-  readonly rightStickers = HERO_CHAOS_STICKERS.filter((sticker) => sticker.zone === 'right');
 
   private readonly heroRef = viewChild<ElementRef<HTMLElement>>('hero');
 
@@ -83,16 +79,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
   parallaxStyle(layer: number): Record<string, string> {
     const offset = this.parallaxOffset() * layer * 0.08;
     return { transform: `translate3d(0, ${offset}px, 0)` };
-  }
-
-  chaosWrapStyle(sticker: ChaosSticker): Record<string, string> {
-    return {
-      '--chaos-rotate': `${sticker.rotate}deg`,
-      '--chaos-delay': `${sticker.delay}s`,
-      '--chaos-duration': `${sticker.duration}s`,
-      '--chaos-dx': `${sticker.driftX}px`,
-      '--chaos-dy': `${sticker.driftY}px`,
-    };
   }
 
   categoryLabel(slug: string): string {

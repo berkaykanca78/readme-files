@@ -8,27 +8,67 @@
       <a routerLink="/">Ana sayfaya dön</a>
     </div>
   } @else if (post(); as current) {
-    <header class="post-detail__header">
-      <a routerLink="/" class="post-detail__back">← Tüm yazılar</a>
-      <h1>{{ current.title }}</h1>
-      <div class="post-detail__meta">
-        <span class="post-detail__category">{{ categoryLabel(current.category) }}</span>
-        @if (current.publishedAt) {
-          <time [dateTime]="current.publishedAt">{{ current.publishedAt | date: 'd MMM y' }}</time>
-        }
-        @if (current.readingMinutes) {
-          <span>{{ current.readingMinutes }} dk</span>
-        }
-        @if (current.tags?.length) {
-          @for (tag of current.tags; track tag) {
-            <span class="post-detail__tag">{{ tag }}</span>
+    <div class="post-detail__content">
+      <header class="post-detail__header">
+        <a routerLink="/" class="post-detail__back">← Tüm yazılar</a>
+        <h1>{{ current.title }}</h1>
+        <div class="post-detail__meta">
+          <span class="post-detail__category">{{ categoryLabel(current.category) }}</span>
+          @if (current.publishedAt) {
+            <time [dateTime]="current.publishedAt">{{ current.publishedAt | date: 'd MMM y' }}</time>
           }
+          @if (current.readingMinutes) {
+            <span>{{ current.readingMinutes }} dk</span>
+          }
+          @if (current.tags?.length) {
+            @for (tag of current.tags; track tag) {
+              <span class="post-detail__tag">{{ tag }}</span>
+            }
+          }
+        </div>
+      </header>
+
+      <div class="post-detail__stage">
+      <div class="post-detail__chaos-col post-detail__chaos-col--left" aria-hidden="true">
+        @for (sticker of leftStickers; track sticker.id) {
+          <div
+            class="chaos-sticker-wrap"
+            [ngStyle]="chaosWrapStyle(sticker)"
+            [attr.data-sticker]="sticker.id"
+          >
+            <img
+              class="chaos-sticker"
+              [src]="sticker.src"
+              [alt]="sticker.alt"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
         }
       </div>
-    </header>
 
-    <div class="post-detail__body">
-      <app-markdown-content [html]="current.contentHtml" />
+      <div class="post-detail__body">
+        <app-markdown-content [html]="current.contentHtml" />
+      </div>
+
+      <div class="post-detail__chaos-col post-detail__chaos-col--right" aria-hidden="true">
+        @for (sticker of rightStickers; track sticker.id) {
+          <div
+            class="chaos-sticker-wrap"
+            [ngStyle]="chaosWrapStyle(sticker)"
+            [attr.data-sticker]="sticker.id"
+          >
+            <img
+              class="chaos-sticker"
+              [src]="sticker.src"
+              [alt]="sticker.alt"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+        }
+      </div>
+    </div>
     </div>
   }
 </article>

@@ -15,38 +15,6 @@
     </svg>
   </div>
 
-  <div class="hero__chaos" aria-hidden="true">
-    <div class="hero__chaos-col hero__chaos-col--left">
-      @for (sticker of leftStickers; track sticker.id) {
-        <div class="chaos-sticker-wrap" [ngStyle]="chaosWrapStyle(sticker)" [attr.data-sticker]="sticker.id">
-          <img
-            class="chaos-sticker"
-            [src]="sticker.src"
-            [alt]="sticker.alt"
-            [style.width.px]="sticker.width"
-            loading="lazy"
-            decoding="async"
-          />
-        </div>
-      }
-    </div>
-
-    <div class="hero__chaos-col hero__chaos-col--right">
-      @for (sticker of rightStickers; track sticker.id) {
-        <div class="chaos-sticker-wrap" [ngStyle]="chaosWrapStyle(sticker)" [attr.data-sticker]="sticker.id">
-          <img
-            class="chaos-sticker"
-            [src]="sticker.src"
-            [alt]="sticker.alt"
-            [style.width.px]="sticker.width"
-            loading="lazy"
-            decoding="async"
-          />
-        </div>
-      }
-    </div>
-  </div>
-
   <div class="hero__content">
     <p class="hero__eyebrow">Mini Blog</p>
     <h1 class="hero__title">Yazılım mimarisi üzerine notlar</h1>
@@ -54,10 +22,10 @@
       Veritabanları, dağıtık sistemler ve tutarlılık konularında derlediğim okumalar.
       Karmaşık konuları sade anlatmayı seviyorum.
     </p>
-    <!-- <div class="hero__actions">
+    <div class="hero__actions">
       <a routerLink="/" fragment="yazilar" class="hero__cta hero__cta--primary">Son yazılara göz at</a>
       <a routerLink="/post/acid-base-cap" class="hero__cta hero__cta--outline">ACID &amp; BASE rehberi</a>
-    </div> -->
+    </div>
   </div>
 </section>
 

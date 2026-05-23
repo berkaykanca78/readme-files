@@ -70,69 +70,6 @@
   text-align: center;
 }
 
-.hero__chaos {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: var(--spacing-24) var(--spacing-8);
-  pointer-events: none;
-}
-
-.hero__chaos-col {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-  gap: var(--spacing-12);
-  width: 124px;
-  height: calc(100% - var(--spacing-16));
-  max-height: 360px;
-  flex-shrink: 0;
-}
-
-.chaos-sticker-wrap {
-  position: relative;
-  flex: 0 0 auto;
-  will-change: transform;
-  animation: chaos-drift var(--chaos-duration, 5s) ease-in-out infinite;
-  animation-delay: var(--chaos-delay, 0s);
-}
-
-.chaos-sticker {
-  display: block;
-  width: 100%;
-  height: auto;
-  max-height: 112px;
-  object-fit: contain;
-  border-radius: 14px;
-  box-shadow:
-    0 12px 28px rgba(0, 0, 0, 0.36),
-    0 0 0 3px rgba(255, 255, 255, 0.42);
-  transform: rotate(var(--chaos-rotate, 0deg));
-}
-
-@keyframes chaos-drift {
-  0%,
-  100% {
-    translate: 0 0;
-  }
-
-  25% {
-    translate: var(--chaos-dx, 8px) calc(var(--chaos-dy, 10px) * -1);
-  }
-
-  50% {
-    translate: calc(var(--chaos-dx, 8px) * -0.5) calc(var(--chaos-dy, 10px) * 0.6);
-  }
-
-  75% {
-    translate: calc(var(--chaos-dx, 8px) * -1) calc(var(--chaos-dy, 10px) * -0.4);
-  }
-}
-
 .hero__eyebrow {
   margin: 0 0 var(--spacing-16);
   font-size: var(--text-body-sm);
@@ -358,15 +295,6 @@
     min-height: clamp(340px, 46vh, 440px);
     padding: var(--spacing-40) var(--spacing-16);
   }
-
-  .hero__chaos-col {
-    width: 104px;
-    max-height: 300px;
-  }
-
-  .chaos-sticker {
-    max-height: 96px;
-  }
 }
 
 @media (max-width: 640px) {
@@ -377,29 +305,5 @@
   .hero {
     min-height: 320px;
     padding: var(--spacing-32) var(--spacing-12);
-  }
-
-  .hero__chaos {
-    padding-inline: 2px;
-  }
-
-  .hero__chaos-col {
-    width: 88px;
-    max-height: 260px;
-  }
-
-  .hero__chaos-col .chaos-sticker-wrap:last-child {
-    display: none;
-  }
-
-  .chaos-sticker {
-    max-height: 82px;
-    border-radius: 12px;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .chaos-sticker-wrap {
-    animation: none;
   }
 }
