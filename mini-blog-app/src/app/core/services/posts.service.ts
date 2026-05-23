@@ -1,3 +1,4 @@
+import { APP_BASE_HREF } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { catchError, map, Observable, of } from 'rxjs';
@@ -22,6 +23,7 @@ export class PostsService {
   private readonly http = inject(HttpClient);
   private readonly markdown = inject(MarkdownService);
   private readonly categories = inject(CategoriesService);
+  private readonly baseHref = inject(APP_BASE_HREF);
 
   listMeta(filter?: PostFilter): PostMeta[] {
     let posts = [...POSTS_MANIFEST];
@@ -72,11 +74,23 @@ export class PostsService {
   }
 
   private loadPost(meta: PostMeta): Observable<Post> {
-    return this.http.get(meta.filePath, { responseType: 'text' }).pipe(
-      map((raw) => ({
-        ...meta,
-        contentHtml: this.markdown.parseArticle(raw),
-      })),
+    return this.http.get(this.assetUrl(meta.filePath), { responseType: 'text' }).pipe(
+      map((raw) => {
+        const trimmed = raw.trimStart().toLowerCase();
+        if (trimmed.startsWith('<!doctype') || trimmed.startsWith('<html')) {
+          throw new Error('Markdown path returned HTML');
+        }
+        return {
+          ...meta,
+          contentHtml: this.markdown.parseArticle(raw),
+        };
+      }),
     );
+  }
+
+  private assetUrl(path: string): string {
+    const base = this.baseHref.endsWith('/') ? this.baseHref : `${this.baseHref}/`;
+    const relative = path.replace(/^\//, '');
+    return `${base}${relative}`;
   }
 }
